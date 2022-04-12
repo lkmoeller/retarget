@@ -1,0 +1,16 @@
+name: rec_ed
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - biopython=1.78
+  - kiwisolver=1.3.1
+  - matplotlib=3.2.2
+  - matplotlib-base=3.2.2
+  - numpy=1.15.3
+  - numpy-base=1.15.3
+  - pandas=0.23.4
+  - python=3.7.10
+  - scikit-learn=0.20.0
+  - scipy=1.1.0

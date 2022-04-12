@@ -1,0 +1,23 @@
+Limited Copyright License for Research Use by Non-Profit and Government Institutions
+
+
+BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPANYING THIS LICENSE, YOU ARE CONSENTING TO BE BOUND BY ALL OF THE TERMS OF THIS LICENSE
+
+“Copyright 2021. ETH Zurich, Lukas Möller, Eric J. Aird, Markus S. Schröder, Lena Kobel, Lucas Kissling, Lilly Van De Venn, Jacob E. Corn. All Rights Reserved.”
+
+
+The software is being provided as a service for research, educational, instructional and non-commercial purposes only. By submitting jobs to REtarget or using the local version of REtarget you agree to the terms and conditions herein.
+
+You are an actively enrolled student, post-doctoral researcher, or faculty member at a degree-granting educational institution or government research institution; and You will only use the REtarget Software Application and/or Service for educational, instructional, and/or non-commercial research purposes;
+
+You understand that all results produced using the Code may only be used for non-commercial research and/or academic purposes;
+
+You understand that to obtain any right to use the Code for commercial purposes, or in the context of industrially sponsored research, You must enter into an appropriate, separate and direct license agreement with the Owners.
+
+You will not redistribute unmodified versions of the Code;
+
+You will redistribute modifications, if any, under the same terms as this license and only to non-profits and government institutions;
+
+You must credit the authors of the Code: Lukas Möller, Eric J. Aird, Markus S. Schröder, Lena Kobel, Lucas Kissling, Lilly Van De Venn, Jacob E. Corn; and
+
+You understand that neither the names of the Owners nor the names of the authors may be used to endorse or promote products derived from this software without specific prior written permission.
