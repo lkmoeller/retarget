@@ -59,7 +59,7 @@ git clone https://github.com/lkmoeller/retarget.git
 ```
 ### 2. Setup conda environment
 ```
-cd recursive_editing
+cd retarget
 conda env create -f environment.yml
 conda activate retarget
 ```
