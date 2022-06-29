@@ -4,7 +4,7 @@ REtarget is a computational tool to find suitable genomic regions and design gRN
 
 Recursive Editing and REtarget are described in the following paper:
 
-[add]()
+[Moeller, L., Aird, E. J.\*, Schroeder, M. S., Kobel, L., Kissling, L., van de Venn, L., Corn, J. E.\* Recursive Editing improves homology-directed repair through retargeting of undesired outcomes, *Nat. Commun.*, 2022]()
 
 Please cite this paper when using REtarget. By using REtarget you accept the terms of use.
 
@@ -21,7 +21,7 @@ Please cite this paper when using REtarget. By using REtarget you accept the ter
 ---
 
 ## Online tool
-A web-based version of REtarget can be accessed under https://recursive-editing.com. Note that on-the-fly off-target analysis is only available for local usage. We recommend to run the online tool using the Chrome or Firefox browser.
+A web-based version of REtarget can be accessed under https://recursive-editing.herokuapp.com/. Note that on-the-fly off-target analysis is only available for local usage. We recommend to run the online tool using the Chrome or Firefox browser.
 
 ---
 
@@ -53,6 +53,7 @@ mkdir tmp
 cd ..
 ```
 #### **REtarget**
+Please ask authors for access to the REtarget repository.
 ```
 git clone https://github.com/lkmoeller/retarget.git
 ```
@@ -60,7 +61,7 @@ git clone https://github.com/lkmoeller/retarget.git
 ```
 cd recursive_editing
 conda env create -f environment.yml
-conda activate rec_ed
+conda activate retarget
 ```
 ### 3. Add cloned folders to python path
 Either permanently add directories to the python path by adding the following line to `~/.bashrc` (Linux, replace directory by the path that contains the cloned directories)
@@ -168,7 +169,7 @@ REtarget generates three types of result files:
 
 ## Database of pre-computed REtarget results
 ### 1. Genome-wide search for loci amenable to Recursive Editing
-We used REtarget to search the human genome (GRCh38, downloaded from Genbank) for sites amenable for Recursive Editing. Results from our genome-wide search are available in the file ``data/genome_search_results.tar.gz``. The .. folders have a size of approximately xx GB. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/genome_search_summary.csv``. The search was conducted with relatively strict search parameters to restrict the computational complexity. Thus, genomic sites not present in the dataset will be suitable for Recursive Editing, as well.
+We used REtarget to search the human genome (GRCh38, downloaded from Genbank) for sites amenable for Recursive Editing. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/genome_search_summary.csv``. Due to the selected search parameter, this list is not necessarily exhaustive. Genomic sites not present in the dataset could be suitable for Recursive Editing, as well.
 
 Search parameters applied for genome-wide search:
 ````
@@ -205,7 +206,7 @@ FINAL_BY_D2014ON = False
 
 
 ### 2. Search of ClinVar database for loci amenable to Recursive Editing
-We used REtarget to find the best Recursive Editing gRNA set for each of the 94,000+ annotated pathogenic mutations in ClinVar (version as of 11/2021), excluding indels >50 bp that are less ideal for ssODN donors and applying looser parameters than in the previous genome-wide search for globally optimal reagents. Results are available in the file ``data/clinvar_search_results.tar.gz``. The .. folders have a size of approximately xx GB. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/clinvar_search_summary.csv``.
+We used REtarget to find the best Recursive Editing gRNA set for each of the 94,000+ annotated pathogenic mutations in ClinVar (version as of 11/2021), excluding indels >50 bp that are less ideal for ssODN donors and applying looser parameters than in the previous genome-wide search for globally optimal reagents. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/clinvar_search_summary.csv``.
 
 Search parameters applied for ClinVar search:
 ````
@@ -242,7 +243,7 @@ FINAL_BY_D2014ON = False
 
 
 ### 3. Genome-wide start and stop codon search for loci amenable to Recursive Editing
-We used REtarget to search all start and stop codons of the human genome (GRCh38) for sites amenable for Recursive Editing. Results are reported in the file ``data/codon_search_results.tar.gz``. The .. folders have a size of approximately xx GB. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/codon_search_summary.csv``.
+We used REtarget to search all start and stop codons of the human genome (GRCh38) for sites amenable for Recursive Editing. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/codon_search_summary.csv``.
 
 Search parameters applied for start and stop codon search:
 ````
@@ -278,6 +279,6 @@ FINAL_BY_D2014ON = False
 ````
 
 ### 4. Database generation method
-Note that all databases were initially generated without using FlashFry for off-target prediction to limit the computational complexity. All WT-targeting gRNAs were subsequently compiled and filtered according to their off-targets, yielding a reduced dataset. The final databases were generated by running REtarget in its off-target prediction mode on this reduced dataset.
+Note that all databases were initially generated without using FlashFry for off-target prediction to limit the computational complexity. All WT-targeting gRNAs were subsequently compiled and filtered according to their off-targets, yielding a reduced dataset, from which we compiled the summary files listed above.
 
 ---

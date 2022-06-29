@@ -23,8 +23,8 @@ parser.add_argument('-n', '--name', type=str, help='path to output folder', defa
 parser.add_argument('-q', '--seq', required=True, type=str, help='sequence to search', default='')
 parser.add_argument('-s', '--start', type=int, help='start index', default=-1)
 parser.add_argument('-e', '--end', type=int, help='end index', default=-1)
-parser.add_argument('-f', '--database', required=False, type=str, help='Name of FleshFry database', default='chr22_cas9ngg_database')
-parser.add_argument('-t', '--template', required=False, type=str, help='Sequence of HDR template', default='atccacagcagacccaccctcaccttcagttttattgttttgctccaaacGATataactctgctgcttccactgctctggggctggtaaaaatgagtcccccg')
+parser.add_argument('-f', '--database', required=False, type=str, help='Name of FleshFry database', default='')
+parser.add_argument('-t', '--template', required=False, type=str, help='Sequence of HDR template', default='')
 parser.add_argument('-b', '--blacklist', required=False, type=list, help='gRNA Blacklist: List of gRNAs that should not be used by REtarget', default=[])
 args = parser.parse_args()
 
@@ -59,8 +59,7 @@ pam_fwd, pam_rev = 'GG', 'CC'
 # conduct search
 for i in range(pos_start + 50, pos_end - 50):
     
-    pam = str(gen_dict[i:i + 2])
-
+    pam = str(gen_dict[i:i + 2]).upper()
     try:
         # print(i/(pos_end-pos_start)*100)
         if pam == pam_fwd:
