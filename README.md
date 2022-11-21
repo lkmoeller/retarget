@@ -1,29 +1,28 @@
 # REtarget
 
-REtarget is a computational tool to find suitable genomic regions and design gRNAs for Recursive Editing, a strategy to enhance the efficiency of Homology-directed repair (HDR) by retargeting undesired editing outcomes.
+REtarget is a computational tool to find suitable genomic loci and design guide RNAs (gRNAs) for Recursive Editing, a strategy to enhance the efficiency of Homology-directed repair (HDR) in CRISPR/Cas gene editing applications by retargeting undesired editing outcomes.
 
 Recursive Editing and REtarget are described in the following paper:
 
-[Moeller, L., Aird, E. J.\*, Schroeder, M. S., Kobel, L., Kissling, L., van de Venn, L., Corn, J. E.\* Recursive Editing improves homology-directed repair through retargeting of undesired outcomes, *Nat. Commun.*, 2022]()
+[Moeller, L., Aird, E. J.\*, Schroeder, M. S., Kobel, L., Kissling, L., van de Venn, L., Corn, J. E.\* Recursive Editing improves homology-directed repair through retargeting of undesired outcomes. *Nat. Commun.* 13, 4550 (2022)](https://www.nature.com/articles/s41467-022-31944-7)
 
 Please cite this paper when using REtarget. By using REtarget you accept the terms of use.
 
----
+
 
 ## Overview
-- [Online tool]()
+- [Online tool](http://recursive-editing.com/)
 - [Setup for local usage](#setup-for-local-usage)
 - [Local usage](#local-usage)
 - [Search parameters](#search-parameters)
 - [Format of results](#format-of-results)
-- [Database of pre-computed REtarget results](#database-of-pre-computed-REtarget-results)
 
----
+
 
 ## Online tool
-A web-based version of REtarget can be accessed under https://recursive-editing.herokuapp.com/. Note that on-the-fly off-target analysis is only available for local usage. We recommend to run the online tool using the Chrome or Firefox browser.
+A web-based version of REtarget can be accessed under https://recursive-editing.com/. Note that on-the-fly off-target analysis is only available for local usage. We recommend to run the online tool using the Chrome or Firefox browser.
 
----
+
 
 ## Setup for local usage
 Note that the all functions were tested with python 3.7.10 and a Linux operating system.
@@ -53,9 +52,8 @@ mkdir tmp
 cd ..
 ```
 #### **REtarget**
-Please ask authors for access to the REtarget repository.
 ```
-git clone https://github.com/lkmoeller/retarget.git
+git clone https://github.com/cornlab/retarget.git
 ```
 ### 2. Setup conda environment
 ```
@@ -87,10 +85,10 @@ java -Xmx4g -jar ../flash_fry/FlashFry-assembly-1.12.jar \
 ```
 It is necessary to specify the path to the corresponding java executable file in `config.py` (`JDK_PATH`).
 
----
+
 
 ## Local usage
-### 1. Check specific genomic position for suitability for Recursive Editing
+### 1. Generate Recursive Editing gRNAs for specific genomic position
 Example usage:
 ```
 python recursive_editing/hdr_optimization.py -s gaatttagtctcccagcaggagaaataagagtaaataaatgtccagtggaatccacagcagacccaccctcaccttcagttttattgttttgctccaaacataactctgctgcttccactgctctggggctggtaaaaatgagtcccccgtaatcttcaggatgagaaagctgcacaccaaaaagcaataaagacatttt -c 100 -o rev
@@ -119,7 +117,7 @@ Possible arguments:
 - Sequence of HDR template (`-t` or `--template`, not required)
 - gRNA blacklist (`-b` or `--blacklist`, not required): list of gRNAs that should not be used by REtarget
 
----
+
 
 ## Search parameters
 Parameters for running REtarget are specified in the file `recursive_editing/config.py`. Users can adjust the following parameters (variable names used in the python implementation referenced in brackets):
@@ -155,7 +153,7 @@ Minimal Level REtarget Score of Level 2 (``L2_CUT``). The search will terminate 
 - Specify if gRNAs of final level should be designed according to recursive optimization scheme (highest REtarget score) or based on their on-target efficiency (Doench 2014 score, ``FINAL_BY_D2014ON``): *Default: False (final layer not based on Doench 2014 score) - Online version default: True*
 - **Logging mode** (`VERBOSE`): *Default: True*
 
----
+
 
 ## Format of results
 REtarget generates three types of result files:
@@ -164,121 +162,3 @@ REtarget generates three types of result files:
 - **[id]_edit_df.csv**: will be generated for each site listed in **res_df.csv** and contains all predicted editing outcomes for each gRNA. The columns contain the following information for each retargetable indel: Category (insertion or deletion), Genotype position (start position of indel in relation to cut site), Inserted Bases, Length (length of indel), Predicted frequency (relative indel frequency in %), Genotype, REtarget_Score_Contribution, Seq_Type (orientation of genotype in relation to input sequence), Cutsite, Edit_ID, Guide_ID, Level. The corresponding files will be stored in a folder denoting the number of generated levels.
 - In the online version of REtarget, users can also download a file containing the parameters applied for the search. Parameters are listed comma-separated in the following order:
 ``MAX_GUIDE_NUM``, ``MAX_LEVEL_NUM``, ``MAX_GUIDES``, ``MAX_PAM_NUM``, ``SINGLE_FREQ_CUT``, ``LEVEL_FREQ_CUT``, ``LEVEL_WEIGHT_FACTOR``, ``LEVEL_SCORE_FACTOR``, ``MIN_DSCORE``, ``GC_LOW``, ``GC_HIGH``, ``BLACKLIST``, ``MIN_OVERLAP``, ``MAX_OVERLAP``, ``L1_CUT``, ``L2_CUT``, ``MODEL``, ``CELLTYPE_MODEL``, ``CHECK_OFFT_PROX``, ``CHECK_GC``, ``CHECK_POLY_N``, ``CHECK_TTT``, ``CHECK_TEMPLATE``, ``CHECK_BLACKLIST``, ``FINAL_BY_D2014ON``
-
----
-
-## Database of pre-computed REtarget results
-### 1. Genome-wide search for loci amenable to Recursive Editing
-We used REtarget to search the human genome (GRCh38, downloaded from Genbank) for sites amenable for Recursive Editing. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/genome_search_summary.csv``. Due to the selected search parameter, this list is not necessarily exhaustive. Genomic sites not present in the dataset could be suitable for Recursive Editing, as well.
-
-Search parameters applied for genome-wide search:
-````
-MAX_GUIDE_NUM = 10
-MAX_LEVEL_NUM = 3
-MAX_GUIDES = 3
-MAX_PAM_NUM = 10
-SINGLE_FREQ_CUT = 10
-LEVEL_FREQ_CUT = 0.1
-LEVEL_WEIGHT_FACTOR = 1
-LEVEL_SCORE_FACTOR = 1
-MODEL = 0
-CELLTYPE_MODEL = 'mESC'
-MIN_OVERLAP = -1
-MAX_OVERLAP = 10
-L1_CUT = 0.6
-L2_CUT = 0.3
-L_MIN_SAVE = 2
-CHECK_OFFT_GENOME = True
-CHECK_OFFT_PROX = True
-MAX_OFF_TAR = [0, 2, 20, 200, 2000]
-CHECK_OFFT_SCORES = False
-D2014ON_MIN = 0.25
-DCFD_MAXOT_MAX = 0.75
-DCFD_SPEC_MIN = 0.5
-HSU2013_MIN = 0.5
-CHECK_GC = True
-GC_LOW = 0.1
-GC_HIGH = 0.9
-CHECK_POLY_N = False
-CHECK_TTT = False
-FINAL_BY_D2014ON = False
-````
-
-
-### 2. Search of ClinVar database for loci amenable to Recursive Editing
-We used REtarget to find the best Recursive Editing gRNA set for each of the 94,000+ annotated pathogenic mutations in ClinVar (version as of 11/2021), excluding indels >50 bp that are less ideal for ssODN donors and applying looser parameters than in the previous genome-wide search for globally optimal reagents. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/clinvar_search_summary.csv``.
-
-Search parameters applied for ClinVar search:
-````
-MAX_GUIDE_NUM=5
-MAX_LEVEL_NUM=3
-MAX_GUIDES=3
-MAX_PAM_NUM=10
-SINGLE_FREQ_CUT=10
-LEVEL_FREQ_CUT=0.1
-LEVEL_WEIGHT_FACTOR=1
-LEVEL_SCORE_FACTOR=1
-MODEL=0
-CELLTYPE_MODEL='mESC'
-MIN_OVERLAP = -1
-MAX_OVERLAP = 10
-L1_CUT = 0.35
-L2_CUT = 0.15
-L_MIN_SAVE = 2
-CHECK_OFFT_GENOME = True
-CHECK_OFFT_PROX = True
-MAX_OFF_TAR = [0, 2, 20, 200, 2000]
-CHECK_OFFT_SCORES = False
-D2014ON_MIN = 0.05
-DCFD_MAXOT_MAX = 0.75
-DCFD_SPEC_MIN = 0.5
-HSU2013_MIN = 0.5
-CHECK_GC = False
-GC_LOW = 0.1
-GC_HIGH = 0.9
-CHECK_POLY_N = False
-CHECK_TTT = False
-FINAL_BY_D2014ON = False
-````
-
-
-### 3. Genome-wide start and stop codon search for loci amenable to Recursive Editing
-We used REtarget to search all start and stop codons of the human genome (GRCh38) for sites amenable for Recursive Editing. A summary of all results with initial target sequences and genomic positions can be found in the file ``data/codon_search_summary.csv``.
-
-Search parameters applied for start and stop codon search:
-````
-MAX_GUIDE_NUM=5
-MAX_LEVEL_NUM=3
-MAX_GUIDES=3
-MAX_PAM_NUM=10
-SINGLE_FREQ_CUT=10
-LEVEL_FREQ_CUT=0.1
-LEVEL_WEIGHT_FACTOR=1
-LEVEL_SCORE_FACTOR=1
-MODEL=0
-CELLTYPE_MODEL='mESC'
-MIN_OVERLAP = -1
-MAX_OVERLAP = 10
-L1_CUT = 0.35
-L2_CUT = 0.15
-L_MIN_SAVE = 2
-CHECK_OFFT_GENOME = True
-CHECK_OFFT_PROX = True
-MAX_OFF_TAR = [0, 2, 20, 200, 2000]
-CHECK_OFFT_SCORES = False
-D2014ON_MIN = 0.05
-DCFD_MAXOT_MAX = 0.75
-DCFD_SPEC_MIN = 0.5
-HSU2013_MIN = 0.5
-CHECK_GC = False
-GC_LOW = 0.1
-GC_HIGH = 0.9
-CHECK_POLY_N = False
-CHECK_TTT = False
-FINAL_BY_D2014ON = False
-````
-
-### 4. Database generation method
-Note that all databases were initially generated without using FlashFry for off-target prediction to limit the computational complexity. All WT-targeting gRNAs were subsequently compiled and filtered according to their off-targets, yielding a reduced dataset, from which we compiled the summary files listed above.
-
----
